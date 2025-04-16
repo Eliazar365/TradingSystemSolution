@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Include="Market\PriceBook.cs" />
+		<Compile Include="Market\TransactionLog.cs" />
+		<Compile Include="Market\MarketSimulator.cs" />
+		<Compile Include="Traders\Trader.cs" />
+		<Compile Include="Traders\Transaction.cs" />
+		<Compile Include="Statistics\MetricsCalculator.cs" />
+		<Compile Include="Program.cs" />
+	</ItemGroup>
+
+</Project>
