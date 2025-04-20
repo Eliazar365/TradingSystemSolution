@@ -8,6 +8,7 @@ class Trader
     private readonly int id;
     private readonly ConcurrentDictionary<string, decimal> precios;
     private readonly Random aleatorio = new();
+    private readonly object bloqueoConsola = new();
 
     public Trader(int id, ConcurrentDictionary<string, decimal> precios)
     {
@@ -18,22 +19,24 @@ class Trader
     public void EjecutarOperacion()
     {
         var operacion = GenerarOperacion();
-        Thread.Sleep(200); // Simula trabajo
+        //Tiempo entre cada transaccion
+        Thread.Sleep(2000);
 
-        lock (Console.Out)
+        lock (bloqueoConsola)
         {
-            Console.WriteLine($"Tarea #{id} | {operacion.Moneda} | " +
+            Console.WriteLine($"Trader #{id} | {operacion.Moneda} | " +
                              $"{operacion.Tipo} | {operacion.Monto:N2} | " +
                              $"{operacion.Precio:N2}");
         }
     }
 
-    public async Task EjecutarOperacionAsync()
+    public async Task EjecutarOperacionAsync(CancellationToken ct)
     {
         var operacion = GenerarOperacion();
-        await Task.Delay(200); // Simula trabajo asíncrono
+        //Tiempo entre cada transaccion
+        await Task.Delay(2000, ct);
 
-        Console.WriteLine($"Tarea #1 | {operacion.Moneda} | " +
+        Console.WriteLine($"Trader #1 | {operacion.Moneda} | " +
                         $"{operacion.Tipo} | {operacion.Monto:N2} | " +
                         $"{operacion.Precio:N2}");
     }
